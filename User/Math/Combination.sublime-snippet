@@ -1,0 +1,28 @@
+<snippet>
+	<content><![CDATA[
+${1:defineMod_and_call_pre}
+
+ll fact[N];
+ll invfact[N];
+ 
+void pre(){
+	fact[0] = invfact[0] = invfact[1] = 1;
+	for(int i = 1 ; i < N ; ++i){
+		fact[i] = (fact[i-1] * i) % mod;
+	}
+	for(int i = 2 ; i < N ; ++i){
+	 	invfact[i] = (mod - mod / i) * invfact[mod % i] % mod;
+	}
+	for(int i = 1; i < N ; ++i){
+	 	invfact[i] = (invfact[i-1] * invfact[i]) % mod;
+	}
+}
+ll nCr(ll n, ll r){
+	return ((( fact[n] * invfact[r] ) % mod) * invfact[n-r]) % mod;
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>permutation_and_combination</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

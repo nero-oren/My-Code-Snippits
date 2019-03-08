@@ -1,0 +1,56 @@
+<snippet>
+	<content><![CDATA[
+${1:index_must_be_1_based}
+
+struct BIT {
+    ll data[N];
+    void update(ll idx, ll val) {
+        while (idx < N) {
+            data[idx] += val;
+            idx += idx & -idx;
+        }
+    }
+    void update(ll l, ll r, ll val) {
+        update(l, val);
+        update(r + 1, -val);
+    }
+    ll query(ll idx) {
+        ll res = 0;
+        while (idx > 0) {
+            res += data[idx];
+            idx -= idx & -idx;
+        }
+        return res;
+    }
+    ll query(ll l, ll r) {
+        return query(r) - query(l);
+    }
+    void clear(){
+        memset(data, 0, sizeof data);
+    }
+};
+ 
+struct LazyBIT {
+    BIT bitAdd, bitSub;
+    void update(ll l, ll r, ll val) {
+        bitAdd.update(l, r, val);
+        bitSub.update(l, r, (l - 1) * val);
+        bitSub.update(r + 1, (-r + l - 1) * val);
+    }
+    ll query(ll idx) {
+        return idx * bitAdd.query(idx) - bitSub.query(idx);
+    }
+    ll query(ll l, ll r) {
+        return query(r) - query(l - 1);
+    }
+    void clear(){
+        bitAdd.clear();
+        bitSub.clear();
+    }
+};
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>BIT_Poll_Update</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

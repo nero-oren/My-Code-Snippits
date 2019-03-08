@@ -1,0 +1,63 @@
+<snippet>
+	<content><![CDATA[
+ll seg[4 * N];
+ll lazy[4 * N];
+
+void build(ll st, ll en, ll node){
+	if(st == en){
+		seg[node] = ${1:/*code*/}
+		return;
+	}
+	ll m = st + en >> 1;
+	build(st, m, node * 2);
+	build(m + 1, en, node * 2 + 1);
+	seg[node] = ${2:max(seg[node * 2], seg[node * 2 + 1])};
+}
+
+void removelazy(ll node){
+	if(lazy[node]){
+		seg[node] = ${3:/*update*/};
+		if(st != en){
+			lazy[node * 2] += lazy[node];
+			lazy[node * 2 + 1] += lazy[node];
+		}
+		lazy[node] = 0;
+	}
+}
+
+void update(ll st, ll en, ll l, ll r, ll node, ll val){
+	removelazy(node);
+	if(en < l || r < st){
+		return ;
+	}
+	if(l <= st && en <= r){
+		seg[node] = ${4:/*update*/}
+		if(st != en){
+			lazy[node * 2] += val;
+			lazy[node * 2 + 1] += val;
+		}
+		return ;
+	}
+	ll m = st + en >> 1;
+	update(st, m, l, r, node * 2, val);
+	update(m + 1, en, l, r, node * 2 + 1, val);
+	seg[node] = ${5:max(seg[node * 2], seg[node * 2 + 1])}; 
+}
+
+ll query(ll st, ll en, ll l, ll r, ll node){
+	removelazy(node);
+	if(en < l || r < st){
+		return ;
+	}
+	if(l <= st && en <= r){
+		return seg[node];
+	}
+	ll m = st + en >> 1;
+	return ${6:max(query(st, m, l, r, node * 2), query(m + 1, en, l, r, node * 2 + 1))};
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>segTree</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

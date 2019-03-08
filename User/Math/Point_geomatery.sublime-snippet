@@ -1,0 +1,68 @@
+<snippet>
+	<content><![CDATA[
+const double eps = 1e-6;
+
+ll res;
+ll a[N];
+
+bool iseq(double x, double y){
+    return fabs(x - y) < eps;
+}
+
+bool isles(double x, double y){
+    return  x < y && !iseq(x, y);
+}
+
+bool isInt(double x){
+    int xx = (int)(x + eps);
+    return iseq(x, xx);
+}
+
+struct Point{
+    double x, y;
+
+    Point() : x(), y() {}
+    Point(double _x, double _y) : x(_x), y(_y) {}
+
+    void scan(){
+        //scanf("%lf%lf", &x, &y);
+        cin >> x >> y;
+    }
+    void print(){
+        printf("(%.6lf %.6lf)\n", x, y);
+    }
+
+    Point operator +(const Point &a) const{
+        return Point(x + a.x, y + a.y);
+    }
+
+    Point operator -(const Point &a) const{
+        return Point(x - a.x, y - a.y);
+    }    
+
+    Point operator / (double &k) const{
+        return Point(x / k, y / k);
+    }
+
+    Point operator * (double &k) const{
+        return Point(x * k, y * k);
+    }
+
+    double operator % (const Point &a) const{ //dot product
+        return x * a.x + y * a.y;
+    }
+
+    double operator * (const Point &a) const{ // cross product
+        return x * a.y - y * a.x;
+    }
+
+    double len(){
+        return sqrtl(*this % *this);
+    }
+};
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>geomatery</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

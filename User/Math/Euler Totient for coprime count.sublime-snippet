@@ -1,0 +1,51 @@
+<snippet>
+	<content><![CDATA[
+/*
+Euler totient function - no of integer b/w 1 and  n are co prime;
+Observation-
+if n = prime, res = n - 1 //common sense;
+if n = prime ^ k , p ^ k - p ^ (k - 1) //common Sense
+if n = ab, a and b are prime , 
+ans(ab) = ans(a) * ans(b) // from cinese remainder theorem for co-prime;
+ans(ab) = ans(a) * ans(b) * d / ans(d), d = gcd(a, b) // for not coprime;
+*/
+
+// O(sqrt(n))
+ll coprimeCount(ll x){
+    ll ct = x;
+    for(ll i = 2; i * i <= x; ++i){
+        if(x % i == 0){
+            while(x % i == 0)   x /= i;
+            ct -= ct / i;
+        }
+        i += (i > 2);
+    }
+    return (ct - (x > 1) * (ct / x));    
+}
+
+//Precompute , call siev first and coprimeCount;
+
+ll coprime[N];
+
+void coprimeCount(){
+    coprime[1] = 1;
+    for(int i = 2; i < N; ++i){
+        if(!prime[i])   coprime[i] = i - 1;
+        else{
+            coprime[i] = 1;
+            ll no = i;
+            while(no != 1){
+                ll ct = 0, aa = spf[no];
+                while(no % aa == 0) no /= aa, ++ct;
+                if((ll)powl(aa, ct) == i)    coprime[i] = (ll)pow(aa, ct) - (ll)pow(aa, ct - 1);
+                else coprime[i] *=  coprime[(ll)pow(aa, ct)];
+            }
+        }
+    }
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>Euler_Totient</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

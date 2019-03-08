@@ -1,0 +1,28 @@
+<snippet>
+	<content><![CDATA[
+${1:call_siev_first}
+ll prime[N];
+ll spf[N];
+
+vector<ll> p;
+
+void siev(ll maxN){
+    prime[0] = prime[1] = 1;
+    spf[0] = spf[1] = 1;
+    for(int i = 2; i < maxN; ++i){
+        if(!prime[i]){
+            spf[i] = i;
+            for(int j = 2 * i; j < maxN; j += i){
+                prime[j] = 1;
+                if(!spf[j]) spf[j] = i;
+            }
+            p.push_back(i);
+        }
+    }
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>prime_siev</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

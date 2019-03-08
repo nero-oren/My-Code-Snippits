@@ -1,0 +1,18 @@
+<snippet>
+	<content><![CDATA[
+pair<ll, pair<ll, ll> > extendedEuclid(ll x, ll y) {
+    if(x == 0) return {y, {0, 1}};
+    pair<ll, pair<ll, ll> > p;
+    p = extendedEuclid(y % x, x);
+    return {p.first, {p.second.second - p.second.first * (y / x), p.second.first}};
+}
+ 
+ll modInverse(ll a) {
+    return (extendedEuclid(a, mod).second.first + mod) % mod;
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>Extended_Euclid</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

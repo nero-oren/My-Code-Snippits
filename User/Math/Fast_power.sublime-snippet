@@ -1,0 +1,19 @@
+<snippet>
+	<content><![CDATA[
+ll po(ll a , ll b){
+	ll res = 1;
+	while(b){
+		if(b & 1){
+			res = (1LL * res * a) % mod;
+		}
+		a = (1LL * a * a) % mod;
+		b >>= 1;
+	}
+	return res;
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>po</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

@@ -1,0 +1,70 @@
+<snippet>
+	<content><![CDATA[
+ll SIZE;
+
+struct query{
+    ll l;
+    ll r;
+    ll idx;
+    query() : l(), r(), idx() {} 
+    query(ll _l, ll _r,ll _idx) : l(_l), r(_r), idx(_idx){}
+    bool operator < (const mo &a){
+        if(l / SIZE == a.l / SIZE){
+            return r < a.r;
+        }
+        return l < a.l;
+    }
+}q[N];
+
+void remove(ll x){
+
+}
+
+void add(ll x){
+
+}
+
+void mo(){
+    sort(q + 1, q + m + 1);
+    ll lptr = 1, rptr = 0;
+    for (int i = 1; i <= m; ++i){
+        while(lptr > q[i].l){
+            --lptr;
+            add(lptr);
+        }
+        while(lptr < q[i].l){
+            remove(lptr);
+            ++lptr;
+        }
+        while(rptr < q[i].r){
+            ++rptr;
+            add(rptr);
+        }
+        while(rptr > q[i].r){
+            remove(rptr);
+            --rptr;
+        }
+        ans[q[i].idx] = res;
+    }
+}
+
+void solve(){   
+    ll n, m, l, r;
+    cin >> ${1:n};
+    SIZE = sqrtl(n);
+    cin >> m;
+    for (int i = 1; i <= m; ++i){
+        cin >> l >> r;
+        q[i] = query(l, r, i);   
+    }
+    mo();
+    for (int i = 1; i <= m; ++i){
+        cout << ans[i] << "\n";
+    }
+} 
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>mo_algo</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

@@ -1,0 +1,29 @@
+<snippet>
+	<content><![CDATA[
+//                                      KiSmAt
+#include "bits/stdc++.h"
+#include "ext/pb_ds/assoc_container.hpp" 
+#include "ext/pb_ds/tree_policy.hpp"
+#include "ext/pb_ds/detail/standard_policies.hpp"
+using namespace __gnu_pbds;
+using namespace std;
+ 
+typedef long long  ll;
+template <typename T>
+using ordered_set = tree<T, null_type, less<T>, rb_tree_tag,tree_order_statistics_node_update>;
+ 
+const int N = 2 * 1e5 + 10;
+
+ll res;
+ll a[N];
+
+ordered_set<${1:ll}> ${2:os};
+
+//*os.find_by_order(k) return kth largest element
+//os.order_of_key(k) return no of element strictly less than k;
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>Policy_based_datastructure</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

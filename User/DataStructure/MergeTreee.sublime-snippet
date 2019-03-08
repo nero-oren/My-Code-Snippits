@@ -1,0 +1,29 @@
+<snippet>
+	<content><![CDATA[
+vector<ll> seg[N];
+
+void build(ll l, ll r, ll node){
+	if(l == r){
+		seg[node].push_back(a[l]);
+		return ;
+	}
+	ll m = l + r >> 1;
+	build(l, m, node * 2);
+	build(m + 1, r, node * 2 + 1);
+	merge(seg[node * 2].begin(), seg[node * 2].end(), seg[node * 2 + 1].begin(), seg[node * 2 + 1].end(), back_inserter(seg[node]));
+}
+
+ll query(ll st, ll en, ll l, ll r, ll node){
+	if(en < l || r < st)	return 0;
+	if(l <= st && en <= r){
+		${1://acc to q return, what u want in sorted segment}
+	}
+	ll m = st + en >> 1;
+	return query(st, m, l, r, node * 2) + query(m + 1, en, l, r, node * 2 + 1); // acc to q return
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>MergeSortTree</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>
